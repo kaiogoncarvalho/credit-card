@@ -56,6 +56,36 @@ Route::prefix('v1')->group(
             }
         );
         
-        Route::middleware(['auth:api', 'scope:admin'])->get('/users', 'UserController@getAll');
+        Route::middleware(['auth:api', 'scope:admin'])->group(
+            function () {
+                
+                Route::get('/users', 'UserController@getAll');
+                
+                Route::prefix('category')->group(
+                    function () {
+                        Route::post('', 'CategoryController@create');
+                        Route::get('/{category_id}', 'CategoryController@getById')
+                            ->where(['category_id' => '[0-9]+']);
+                        Route::patch('/{category_id}', 'CategoryController@update')
+                            ->where(['category_id' => '[0-9]+']);
+                        Route::delete('/{category_id}', 'CategoryController@delete')
+                            ->where(['category_id' => '[0-9]+']);
+    
+                        Route::get('deleted/{category_id}', 'CategoryController@getDeletedById')
+                            ->where(['category_id' => '[0-9]+']);
+                        Route::patch('recover/{category_id}', 'CategoryController@recoverById')
+                            ->where(['category_id' => '[0-9]+']);
+                    }
+                );
+    
+                Route::prefix('categories')->group(
+                    function () {
+                        Route::get('', 'CategoryController@getAll');
+                        Route::get('/deleted', 'CategoryController@getAllDeleted');
+                    }
+                );
+                
+            }
+        );
     }
 );

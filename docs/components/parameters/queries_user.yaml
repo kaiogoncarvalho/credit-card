@@ -12,17 +12,16 @@ order:
 orders:
   in: query
   name: orders
-  description: Ordenate by array of values
+  description: Ordenate by array of values <br> <b>Example:</b> orders[]=name&orders[]=email
   schema:
     type: array
     items:
       type: enum
-
       enum: [
         'name',
         'email'
       ]
-      example: [name, email]
+    example: [name, email]
 
 filters:
   name:
