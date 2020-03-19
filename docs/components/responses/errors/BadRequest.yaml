@@ -1,0 +1,19 @@
+Token:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          error:
+            type: string
+            example: "invalid_request"
+          error_description:
+            type: string
+            example: "The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed."
+          hint:
+            type: string
+            example: "Check the `password` parameter"
+          message:
+            type: string
+            example: "The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed."

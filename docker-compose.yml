@@ -1,0 +1,68 @@
+version: "3"
+
+networks:
+  default:
+    driver: bridge
+
+
+services:
+
+  php:
+    container_name: creditcard_php
+    build:
+      context: docker/php
+    environment:
+      APP_URL: localhost:8080
+      DB_CONNECTION: mysql
+      DB_HOST: creditcard_mysql
+      DB_PORT: 3306
+      DB_DATABASE: creditcard
+      DB_DATABASE_TEST: creditcard_test
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+    volumes:
+      - .:/opt/creditcard:delegated
+    networks:
+      - default
+
+  mysql:
+    container_name: creditcard_mysql
+    image: mysql:8.0.19
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: creditcard
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3307:3306
+    networks:
+      - default
+
+
+  web:
+    container_name: creditcard_web
+    image: nginx:latest
+    volumes:
+      - .:/opt/creditcard:delegated
+      - ./docker/nginx:/etc/nginx/conf.d:delegated
+    depends_on:
+      - php
+    ports:
+      - 8080:8080
+    networks:
+      - default
+
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: creditcard_swagger
+    environment:
+      API_URL: http://localhost:8080/v1/docs/swagger.yaml
+    ports:
+      - "7080:8080"
+    networks:
+      - default
+
+
+

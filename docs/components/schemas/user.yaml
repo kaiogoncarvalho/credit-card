@@ -1,0 +1,27 @@
+schema:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: User ID
+    name:
+      type: string
+      example: Admin User
+      description: The name of User
+    email:
+      type: string
+      example: email@site.com.br
+      description: User E-mail
+    scopes:
+      type: array
+      items:
+        type: enum
+        enum: [admin, user]
+        example: admin
+    created_at:
+      type: string
+      example: "2020-01-01 01:00:00"
+    updated_at:
+      type: string
+      example: "2020-01-01 01:00:00"

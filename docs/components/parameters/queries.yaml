@@ -1,0 +1,14 @@
+page:
+  in: query
+  name: page
+  schema:
+    type: integer
+    default: 1
+    description: Current Page
+perPage:
+  in: query
+  name: perpage
+  schema:
+    type: integer
+    default: 10
+    description: Itens per page

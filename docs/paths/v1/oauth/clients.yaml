@@ -1,0 +1,24 @@
+get:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
+  tags:
+    - Oauth
+  summary: Get Clients of User
+  description: <b>Scopes:</b> admin
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '200':
+      description: Clients of User
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../../components/schemas/client.yaml#/schema'

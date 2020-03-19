@@ -1,0 +1,26 @@
+post:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/ContentType'
+  requestBody:
+    description: Body to authentication.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/token.yaml#/schema'
+  tags:
+    - Oauth
+  summary: Get Token to Authentication.
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '401':
+      $ref: '../../../components/responses/errors/Unauthorized.yaml#/Token'
+    '400':
+      $ref: '../../../components/responses/errors/BadRequest.yaml#/Token'
+    '200':
+      description: Token Bearer
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/responses/token.yaml#/Token'

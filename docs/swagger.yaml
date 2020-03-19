@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+    title: Credit Card API
+    description: This API is responsible for management of credit cards
+    version: 1.0.0
+servers:
+    - url: http://localhost:8080
+      description: Development Server
+
+components:
+  securitySchemes:
+    oAuth2:    # <---- arbitrary name
+      type: oauth2
+      description: This API uses OAuth 2 with the password grant flow. [More info](https://api.example.com/docs/auth)
+      flows:
+        password:   # <---- OAuth flow(authorizationCode, implicit, password or clientCredentials)
+          tokenUrl: /v1/oauth/token
+          scopes:
+            admin: permission admin
+            user: permission user
+
+security:
+  - oAuth2:
+      - admin
+      - user
+
+paths:
+    /v1/oauth/clients:
+      $ref: './paths/v1/oauth/clients.yaml'
+
+    /v1/oauth/token:
+      $ref: './paths/v1/oauth/token.yaml'
+
+    /v1/user:
+      $ref: './paths/v1/user.yaml'
+
+    /v1/user/{user_id}:
+      $ref: './paths/v1/user/{user_id}.yaml'
+
+    /v1/users:
+      $ref: './paths/v1/users.yaml'
+

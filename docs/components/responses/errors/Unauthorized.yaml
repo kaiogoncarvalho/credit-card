@@ -1,0 +1,16 @@
+Token:
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          error:
+            type: string
+            example: "invalid_client"
+          error_description:
+            type: string
+            example: "Client authentication failed"
+          message:
+            type: string
+            example: "Client authentication failed"

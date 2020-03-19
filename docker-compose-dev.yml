@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  php:
+    volumes:
+      - creditcard:/opt/creditcard:nocopy
+
+  web:
+    volumes:
+      - creditcard:/opt/creditcard:nocopy
+      - creditcard-nginx:/etc/nginx/conf.d:nocopy
+
+
+volumes:
+  creditcard:
+    external: true
+  creditcard-nginx:
+    external: true

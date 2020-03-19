@@ -1,0 +1,41 @@
+order:
+  in: query
+  name: order
+  description: Ordenate by value
+  schema:
+    type: enum
+    enum: [
+      'name',
+      'email'
+    ]
+    example: name
+orders:
+  in: query
+  name: orders
+  description: Ordenate by array of values
+  schema:
+    type: array
+    items:
+      type: enum
+
+      enum: [
+        'name',
+        'email'
+      ]
+      example: [name, email]
+
+filters:
+  name:
+    in: query
+    name: name
+    description: Filter by Name
+    schema:
+      type: string
+      example: "Name"
+  email:
+    in: query
+    name: email
+    description: Filter by Email
+    schema:
+      type: string
+      example: "teste@site.com.br"

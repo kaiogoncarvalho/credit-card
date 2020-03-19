@@ -1,0 +1,26 @@
+schema:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Admin User
+      description: The name of User
+    email:
+      type: string
+      example: email@site.com.br
+      description: User E-mail
+    password:
+      type: string
+      example: Pass1234
+      description: User Password
+    scopes:
+      type: array
+      items:
+        type: string
+        default: user
+        enum: [admin, user]
+      example: [admin,user]
+  required:
+    - name
+    - email
+    - password

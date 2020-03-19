@@ -1,0 +1,53 @@
+post:
+  parameters:
+    - $ref: '../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../components/parameters/headers.yaml#/ContentType'
+  tags:
+    - User
+  summary: Create User
+  description: <b>Scopes:</b> admin
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/request/user.yaml#/schema'
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '200':
+      description: User Information With Client
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/responses/user.yaml#/schema'
+get:
+  parameters:
+    - $ref: '../../components/parameters/headers.yaml#/Authorization'
+  tags:
+    - User
+  summary: Get current User information
+  description: <b>Scopes:</b> admin, user
+  security:
+    - oAuth2:
+        - admin
+        - user
+  securityDefinitions:
+    - oAuth2:
+        - admin
+        - user
+  responses:
+    '500':
+      $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '200':
+      description: User Information
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/token.yaml#/schema'

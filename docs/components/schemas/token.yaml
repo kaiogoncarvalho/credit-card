@@ -1,0 +1,30 @@
+schema:
+  type: object
+  properties:
+    grant_type:
+      type: enum
+      enum: [password]
+      example: password
+    client_id:
+      type: integer
+      example: 1
+    client_secret:
+      type: string
+      example: "Acsd1723EDFG25987320EDFGTdfghrfd53697"
+    username:
+      type: string
+      example: email@site.com.br
+    password:
+      type: string
+      example: Pass1234
+    scope:
+      type: enum
+      enum: [admin, user]
+      example: user
+  required:
+    - grant_type
+    - client_id
+    - client_secret
+    - username
+    - password
+    - scope

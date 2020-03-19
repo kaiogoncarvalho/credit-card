@@ -1,0 +1,30 @@
+Token:
+  type: object
+  properties:
+    token_type:
+      type: string
+      example: "Bearer"
+    expires_in:
+      type: integer
+      description: Time to Expire in second
+      example: 14399
+    acess_token:
+      description: Access Token
+      type: string
+      example:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTViNWQ1ZmIxMGE5MmYzZDE2ZWQ0NDg2MTFiZTRjZmRhZWM4NThjMzk5NDM3YWEwZjkwYzRmZTkzZGViZDhh
+        ZDIwYjEwYjUyZGViZjdkOGYiLCJpYXQiOjE1ODI4NzM5NjgsIm5iZiI6MTU4Mjg3Mzk2OCwiZXhwIjoxNTgyODg4MzY3LCJzdWIiOiIxIiwic2NvcGVzIjpbImFkbWluIl19.ATJJ1ulQ9uQTV
+        4V7bf3Cy05OlWeLS-7aIApm1rfumtGTslUTn5PknzExPR8NXKkCkRch-8Mf0hxNQQoKy0iR-F8Q-syOvetTzjVZkMCOdRjFYIDn8VRg6GAtAkqOuQi2Xoxu857mrQeAoUl9-d8Xclij-zM_wYO
+        zOwqUKGjy2pG5u3zBlEEoxupSAw8yCqsiGGEtK_Oa1UyN0B0N7d_AQp1npnivZ8UNOQ_Q_lAkaxHeO4GjBcOYq1fSu7grTWSVSN_4MY_jf3pgKkb-_glzMyyII4uAXFJI8i_kpBt4vfKtXT8V5
+        fq4lWUy6Hn8DEjJzuv9yKmDP_QiEV6hhSUOFE8VBZxXQg4i2oHWdNKdIqz2JZxnlrDI_MDRBQNLTrQTEWzIZzqY1kKTvrTrtZmAvLR1tnMahlQsU8OT1BUH7dTE9k25KnROztxjmEXTxVEIfTmG
+        gl_9e_MyHxMtL2Ne6K4g7Uu56Emgyiw9KI4o_Hg3QCKRLsWl-UnB7mdWL2lGZJ74Kprl6S7mv-pcamBEscGC1ltlbTMPVDRwsY_pApjYKyVosO-invgjsMQ8xp-9crROJV7DvIHpuqASis-jBsw
+        87Pe2ZukQc8GyqtEaOzsDr22LeBv7ceBv3fEPN2sfNJeURniasdasz4c0Q9iFOoorFMerZiueCu5LOPZCDMswY"
+    refresh_token:
+      description: Refresh Token
+      type: string
+      example:
+        "def50200d9b28ee9e43d4837839d570b86fbb3e48bd5b86658559864dc0488d5d2a005e10fb79fe7cfb1e3b699ebb5f3b5e6acfdb16c35ddd701d2cd653a004618cdfc048405f53026a
+        b7d9f1de9a396b26e1b0b4579b62e8fe33c8170c87267bc69f570170642fd7d5f8a1be833edb1f3d9c7cbc3522b0466d5ef97e8b2d464e362611f1d952910d359fe47aa435995a66ed92
+        83813a91b05fafe45555dc5b2a60419f20dbf8038a45f756045e483f8000b7df57bcd485fbbeccc73ee3bce436427437a8adfasdc533c29cb1637a1cdd5b4990ecda766c638ede53275ef75
+        6c290c5aee21f6f16fc31ef0ad197346a4c2c6633260fa9fa4c21cac98946afd94ad661781f163eff2a354f227230fc450fc747e3af119a277bd8752ab99219ebac5756557a90868b0ce
+        edd19bdbfb91f5571e5cf6b1fb985b9aa9921332c715fbd5cd4fe65055c9e3c0d9aa09c68ec6ecf1c38c4e1961df5f8fe28124523481b2c5071136c966eaa33"

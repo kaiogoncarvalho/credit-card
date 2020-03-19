@@ -1,0 +1,25 @@
+get:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../../components/parameters/path.yaml#/userId'
+  tags:
+    - User
+  summary: Get User information by ID
+  description: <b>Scopes:</b> admin
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '404':
+      $ref: '../../../components/responses/errors/NotFound.yaml#/Resource'
+    '200':
+      description: User Information
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/user.yaml#/schema'

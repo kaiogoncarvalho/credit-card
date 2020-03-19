@@ -1,0 +1,8 @@
+userId:
+  in: path
+  name: user_id
+  required: true
+  schema:
+    type: integer
+    example: 1
+  description: The User ID
