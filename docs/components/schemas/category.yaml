@@ -1,0 +1,17 @@
+schema:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: Category ID
+    name:
+      type: string
+      example: Gold
+      description: The name of Category
+    created_at:
+      type: string
+      example: "2020-01-01 01:00:00"
+    updated_at:
+      type: string
+      example: "2020-01-01 01:00:00"

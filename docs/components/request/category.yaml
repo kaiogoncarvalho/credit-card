@@ -1,0 +1,7 @@
+schema:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Gold
+      description: The name of Category

@@ -1,0 +1,33 @@
+post:
+  parameters:
+    - $ref: '../../components/parameters/headers.yaml#/Authorization'
+  tags:
+    - Category
+  summary: Create a Category
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: '../../components/request/category.yaml#/schema'
+            - required:
+                - name
+  description: <b>Scopes:</b> admin
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '404':
+      $ref: '../../components/responses/errors/NotFound.yaml#/Resource'
+    '200':
+      description: Category Information
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/category.yaml#/schema'

@@ -1,0 +1,78 @@
+get:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../../components/parameters/path.yaml#/category_id'
+  tags:
+    - Category
+  summary: Get Category information by ID
+  description: <b>Scopes:</b> admin
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '404':
+      $ref: '../../../components/responses/errors/NotFound.yaml#/Resource'
+    '200':
+      description: Category Information
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/category.yaml#/schema'
+patch:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../../components/parameters/path.yaml#/category_id'
+  tags:
+    - Category
+  summary: Update a Category
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/request/category.yaml#/schema'
+  description: <b>Scopes:</b> admin </br> <b>All fields of body are optional</b>
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '404':
+      $ref: '../../../components/responses/errors/NotFound.yaml#/Resource'
+    '200':
+      description: Category Information
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/category.yaml#/schema'
+
+delete:
+  parameters:
+    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../../components/parameters/path.yaml#/category_id'
+  tags:
+    - Category
+  summary: Delete a Category
+  description: <b>Scopes:</b> admin
+  security:
+    - oAuth2:
+        - admin
+  securityDefinitions:
+    - oAuth2:
+        - admin
+  responses:
+    '500':
+      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+    '404':
+      $ref: '../../../components/responses/errors/NotFound.yaml#/Resource'
+    '204':
+      description: No Content

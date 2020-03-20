@@ -1,4 +1,4 @@
-userId:
+user_id:
   in: path
   name: user_id
   required: true
@@ -6,3 +6,11 @@ userId:
     type: integer
     example: 1
   description: The User ID
+category_id:
+  in: path
+  name: category_id
+  required: true
+  schema:
+    type: integer
+    example: 1
+  description: The Category ID

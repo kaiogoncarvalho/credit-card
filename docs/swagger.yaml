@@ -40,3 +40,21 @@ paths:
     /v1/users:
       $ref: './paths/v1/users.yaml'
 
+    /v1/categories:
+      $ref: './paths/v1/categories.yaml'
+
+    /v1/categories/deleted:
+      $ref: './paths/v1/categories/deleted.yaml'
+
+    /v1/category/deleted/{category_id}:
+      $ref: './paths/v1/category/deleted/{category_id}.yaml'
+
+    /v1/category/{category_id}:
+      $ref: './paths/v1/category/{category_id}.yaml'
+
+    /v1/category:
+      $ref: './paths/v1/category.yaml'
+
+    /v1/category/recover/{category_id}:
+      $ref: './paths/v1/category/recover/{category_id}.yaml'
+

@@ -1,7 +1,7 @@
 get:
   parameters:
     - $ref: '../../../components/parameters/headers.yaml#/Authorization'
-    - $ref: '../../../components/parameters/path.yaml#/userId'
+    - $ref: '../../../components/parameters/path.yaml#/user_id'
   tags:
     - User
   summary: Get User information by ID
