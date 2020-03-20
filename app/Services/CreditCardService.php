@@ -8,6 +8,7 @@ use Illuminate\Http\UploadedFile;
 use DB;
 use Storage;
 use Exception;
+use Barryvdh\Reflection\DocBlock\Type\Collection;
 
 /**
  * Class CreditCardService
@@ -33,11 +34,13 @@ class CreditCardService
     
     /**
      * @param int $id
-     * @return CreditCard
+     * @return CreditCard|Collection|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
-    public function getById(int $id): CreditCard
+    public function getByIdWithCategory(int $id)
     {
-        return $this->creditCard->findOrFail($id);
+        return $this->creditCard
+            ->with('category')
+            ->findOrFail($id);
     }
     
     public function get(array $filters = [], $order = null)
@@ -66,7 +69,7 @@ class CreditCardService
                 ]
             );
             Storage::putFileAs(
-                "cards/{$creditCard->getAttribute('id')}",
+                env('STORAGE_CARDS_PATH')."/{$creditCard->getAttribute('id')}",
                 $file,
                 $creditCard->getAttribute('image')
             );
@@ -84,42 +87,27 @@ class CreditCardService
         $this->creditCard->findOrFail($id)->delete();
     }
     
-    public function update(int $id, array $fields = []): CreditCard
+    public function update(int $id, ?UploadedFile $file, array $fields = []): CreditCard
     {
         $creditCard = $this
             ->creditCard
             ->findOrFail($id);
+    
+        if ($file instanceof UploadedFile) {
+            Storage::deleteDirectory(env('STORAGE_CARDS_PATH')."/{$creditCard->id}");
+            $creditCard->image = $file->getClientOriginalName();
+            Storage::putFileAs(env('STORAGE_CARDS_PATH')."/{$creditCard->id}", $file, $creditCard->image);
+        }
         
         $creditCard->name = $fields['name'] ?? $creditCard->name;
+        $creditCard->slug = $fields['slug'] ?? $creditCard->slug;
+        $creditCard->brand = $fields['brand'] ?? $creditCard->brand;
+        $creditCard->category_id = $fields['category_id'] ?? $creditCard->category_id;
+        $creditCard->credit_limit = $fields['credit_limit'] ?? $creditCard->credit_limit;
+        $creditCard->annual_fee = $fields['annual_fee'] ?? $creditCard->annual_fee;
         
         $creditCard->save();
         
-        return $creditCard;
-    }
-    
-    public function getDeleted(array $filters = [], $order = null)
-    {
-        return $this->order(
-            $this->filter(
-                $this->creditCard,
-                $filters
-            ),
-            $order
-        )->onlyTrashed();
-    }
-    
-    public function getDeletedById(int $creditCard_id): CreditCard
-    {
-        return $this
-            ->creditCard
-            ->onlyTrashed()
-            ->findOrFail($creditCard_id);
-    }
-    
-    public function recoverById(int $creditCard_id): CreditCard
-    {
-        $creditCard = $this->getDeletedById($creditCard_id);
-        $creditCard->restore();
         return $creditCard;
     }
 }

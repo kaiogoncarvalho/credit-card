@@ -14,3 +14,11 @@ category_id:
     type: integer
     example: 1
   description: The Category ID
+credit_card_id:
+  in: path
+  name: credit_card_id
+  required: true
+  schema:
+    type: integer
+    example: 1
+  description: The Credit Card ID

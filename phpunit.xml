@@ -18,6 +18,7 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="STORAGE_CARDS_PATH" value="test/cards"/>
         <env name="DB_DATABASE" value="creditcard_test" force="true"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="MAIL_DRIVER" value="array"/>

@@ -85,6 +85,10 @@ Route::prefix('v1')->group(
                 Route::prefix('credit-card')->group(
                     function () {
                         Route::post('', 'CreditCardController@create');
+                        Route::post('{credit_card_id}', 'CreditCardController@update')
+                            ->where(['credit_card_id' => '[0-9]+']);
+                        Route::get('{credit_card_id}', 'CreditCardController@getById')
+                            ->where(['credit_card_id' => '[0-9]+']);
                     }
                 );
             }

@@ -29,8 +29,8 @@ post:
     '500':
       $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
     '200':
-      description: Category Information
+      description: Credit Card With Category Information
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/credit_card.yaml#/schema'
+            $ref: '../../components/schemas/credit_card_category.yaml#/schema'

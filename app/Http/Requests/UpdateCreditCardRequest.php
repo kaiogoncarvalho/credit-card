@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Enums\Brand;
+use App\Rules\Double;
 
 class UpdateCreditCardRequest extends FormRequest
 {
@@ -13,9 +16,9 @@ class UpdateCreditCardRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
-
+    
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,8 +26,24 @@ class UpdateCreditCardRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('category_id');
+        
         return [
-            //
+            'name'         => "string|min:1|max:80|unique:credit_cards,name,{$id},id",
+            'slug'         => "string|min:1|max:255|unique:credit_cards,slug,{$id},id",
+            'image'        => 'image',
+            'brand'        => [
+                Rule::in(Brand::getAll())
+            ],
+            'category_id'  => 'integer|exists:categories,id',
+            'credit_limit' => [
+                'nullable',
+                new Double(15, 2)
+            ],
+            'annual_fee'   => [
+                'nullable',
+                new Double(15, 2)
+            ]
         ];
     }
 }

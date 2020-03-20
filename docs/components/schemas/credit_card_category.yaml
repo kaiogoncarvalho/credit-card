@@ -1,0 +1,23 @@
+schema:
+  type: object
+  properties:
+    id:
+      $ref: './credit_card.yaml#/schema/properties/id'
+    name:
+      $ref: './credit_card.yaml#/schema/properties/name'
+    image:
+      $ref: './credit_card.yaml#/schema/properties/image'
+    brand:
+      $ref: './credit_card.yaml#/schema/properties/brand'
+    category_id:
+      $ref: './credit_card.yaml#/schema/properties/category_id'
+    credit_limit:
+      $ref: './credit_card.yaml#/schema/properties/credit_limit'
+    annual_fee:
+      $ref: './credit_card.yaml#/schema/properties/annual_fee'
+    created_at:
+      $ref: './credit_card.yaml#/schema/properties/created_at'
+    updated_at:
+      $ref: './credit_card.yaml#/schema/properties/updated_at'
+    category:
+      $ref: './category.yaml#/schema'

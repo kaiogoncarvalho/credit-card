@@ -20,6 +20,7 @@ services:
       DB_DATABASE_TEST: creditcard_test
       DB_USERNAME: root
       DB_PASSWORD: secret
+      STORAGE_CARDS_PATH: cards
     volumes:
       - .:/opt/creditcard:delegated
     networks:

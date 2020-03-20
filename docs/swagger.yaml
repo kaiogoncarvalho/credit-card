@@ -59,5 +59,8 @@ paths:
       $ref: './paths/v1/category/recover/{category_id}.yaml'
 
     /v1/credit-card:
-      $ref: './paths/v1/credit_card.yaml'
+      $ref: './paths/v1/credit-card.yaml'
+
+    /v1/credit-card/{credit_card_id}:
+      $ref: './paths/v1/credit-card/{credit_card_id}.yaml'
 
