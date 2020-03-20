@@ -1,78 +1,95 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Credit Card Manager
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This API is responsible for management of credit cards.
 
-## About Laravel
+## Install
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This System uses Docker, so it is necessary Docker 
+and Docker Compose installed to run this project, but you can configure nginx (or apache), php and mysql.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+For install is necessary follow this steps:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Install using Docker**
 
-## Learning Laravel
+* Acess the directory of project
+* give permissions for logs:
+    * **MacOS:** `sudo chmod -R 777 storage`
+    * **Linux:** `sudo chmod 777 -R storage`
+* run this commands for install and start docker
+    * `docker-compose build`
+    * `docker-compose up -d`
+* run this command to generate .env
+    * `cp .env.example .env `   
+* run this command to install libraries
+    * `docker-compose exec php composer install`
+* run this command to generate key:
+    * `docker-compose exec php php artisan key:generate`
+* run this command for create tables
+    * `docker-compose exec php php artisan migrate`
+* run this command for create admin user and create initial data
+    * `docker-compose exec php php artisan db:seed`
+* run to generate private and public key of Oauth 2.0:
+    * `docker-compose exec php php artisan passport:install`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Install without Docker**
+* Configure nginx (or apache), php and mysql;
+* Acess the directory of project
+* give permissions for logs:
+    * `sudo chmod 777 -R storage`
+* run this command to generate .env
+    * `cp .env.example .env `   
+* run this command to generate key:
+    * `docker-compose exec php php artisan key:generate` 
+* run this command to install libraries
+    *  `composer install`
+* run this command to create tables
+    * `php artisan migrate`
+* run this command to create admin user
+    * `php artisan db:seed`
+* run to generate private and public key of Oauth 2.0:
+    * `docker-compose exec php php artisan passport:install`
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Tests
+For run tests follow this steps in directory of project:
+* run this command to run acceptance tests:    
+    * `docker-compose exec php composer tests`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+If you don't user Docker to Install use this commands in directory of project:
+* run this command to run acceptance tests:    
+    * `php composer tests`
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Usage
+**IMPORTANT! All request with method POST need Content-Type in header**
 
-## Code of Conduct
+**The Endpoints use Oauth 2.0, so to generate bearer token use the endpoint /v1/oauth/token with this body:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`{
+ 	"client_id": 1, 	
+ 	"grant_type": "password",
+ 	"client_secret": "eB82RBLG47GT5RjVfOMaKhOBPyinWPFyuNUEuzYn",
+ 	"username": "admin@admin.com",
+ 	"password": "Admin123",
+ 	"scope": "admin"
+ }`
+ 
+**The token lasts 4 hours, in every request you need pass Token** 
 
-## Security Vulnerabilities
+Access this URL for docs of endpoints (this URL is only if you use Docker to install project):
+ 
+ * **URL:** http://localhost:7080
+ 
+Access this URL for API of endpoints ((this URL is only if you use Docker to install project):
+  
+  * **URL:** http://localhost:8080
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+_if you don't use Docker to install system you need configure the URL;_  
 
-## License
+_if you don't use Docker to install, follow this steps to generate documentation:_
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* _access this site https://editor.swagger.io/_
+* _select File -> Import File
+    * _select this file (directory of project)/docs/swagger.yaml__
+

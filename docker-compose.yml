@@ -21,6 +21,7 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: secret
       STORAGE_CARDS_PATH: cards
+      DOCUMENTATION_URL: http://localhost:7080
     volumes:
       - .:/opt/creditcard:delegated
     networks:

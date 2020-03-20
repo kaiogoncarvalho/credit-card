@@ -1,13 +1,14 @@
 get:
   parameters:
-    - $ref: '../../../components/parameters/queries.yaml#/page'
-    - $ref: '../../../components/parameters/queries.yaml#/perPage'
-    - $ref: '../../../components/parameters/headers.yaml#/Authorization'
-    - $ref: '../../../components/parameters/queries_user.yaml#/order'
-    - $ref: '../../../components/parameters/queries_user.yaml#/filters/name'
+    - $ref: '../../components/parameters/queries.yaml#/page'
+    - $ref: '../../components/parameters/queries.yaml#/perPage'
+    - $ref: '../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../components/parameters/queries_credit_card.yaml#/order'
+    - $ref: '../../components/parameters/queries_credit_card.yaml#/orders'
+    - $ref: '../../components/parameters/queries_credit_card.yaml#/filters/name'
   tags:
-    - Category
-  summary: Get all Categories Deleted
+    - Credit Card
+  summary: Get all Credit Cards
   description: <b>Scopes:</b> admin
   security:
     - oAuth2:
@@ -17,9 +18,9 @@ get:
         - admin
   responses:
     '500':
-      $ref: '../../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
+      $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
     '200':
-      description: All Categories Deleted
+      description: All Trips
       content:
         application/json:
           schema:
@@ -32,10 +33,10 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../components/schemas/category.yaml#/schema'
+                  $ref: '../../components/schemas/credit_card_category.yaml#/schema'
               first_page_url:
                 type: string
-                example: http://localhost:8080/v1/categories/deleted?page=1
+                example: http://localhost:8080/v1/credit-cards?page=1
                 description: URL First Page
               from:
                 type: integer
@@ -47,15 +48,15 @@ get:
                 description: Number of Last Page
               last_page_url:
                 type: string
-                example: http://localhost:8080/v1/categories/deleted?page=2
+                example: http://localhost:8080/v1/credit-cards?page=2
                 description: URL Last Page
               next_page_url:
                 type: string
-                example: http://localhost:8080/v1/categories/deleted?page=3
+                example: http://localhost:8080/v1/credit-cards?page=3
                 description: URL Next Page
               path:
                 type: string
-                example: http://localhost:8080/v1/categories/deleted
+                example: http://localhost:8080/v1/credit-cards
                 description: URL
               per_page:
                 type: integer
@@ -63,7 +64,7 @@ get:
                 description: Number itens per page
               prev_page_url:
                 type: integer
-                example: http://localhost:8080/v1/categories/deleted?page=1
+                example: http://localhost:8080/v1/credit-cards?page=1
                 description: URL Next Page
               to:
                 type: integer

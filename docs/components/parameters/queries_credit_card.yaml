@@ -1,0 +1,43 @@
+order:
+  in: query
+  name: order
+  description: Ordenate by value
+  schema:
+    type: enum
+    enum: [
+      'name',
+      'slug',
+      'image',
+      'brand',
+      'category_id',
+      'credit_limit',
+      'annual_fee'
+    ]
+    example: name
+orders:
+  in: query
+  name: orders
+  description: Ordenate by array of values <br> <b>Example:</b> orders[]=name&orders[]=slug
+  schema:
+    type: array
+    items:
+      type: enum
+      enum: [
+        'name',
+        'slug',
+        'image',
+        'brand',
+        'category_id',
+        'credit_limit',
+        'annual_fee'
+      ]
+    example: [name, slug]
+
+filters:
+  name:
+    in: query
+    name: name
+    description: Filter by Name
+    schema:
+      type: string
+      example: "Name"

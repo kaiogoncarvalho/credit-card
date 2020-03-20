@@ -270,4 +270,30 @@ class CreditCardServiceTest extends TestCase
         $this->app->instance(CreditCard::class, $creditCardMock);
         $this->app->make(CreditCardService::class)->delete($id);
     }
+    
+    public function testGetAll()
+    {
+        $creditCardMock = $this->mock(CreditCard::class);
+        
+        $creditCardMock
+            ->shouldReceive('with')
+            ->once()
+            ->with(
+                'category'
+            )->andReturnSelf();
+        
+        $creditCardMock
+            ->shouldReceive('getFilters')
+            ->once()
+            ->andReturn(['name' => 'like']);
+    
+        $creditCardMock
+            ->shouldReceive('where')
+            ->once()
+            ->with('name', 'like', "%Credit Card%")
+            ->andReturnSelf();
+        
+        $this->app->instance(CreditCard::class, $creditCardMock);
+        $this->app->make(CreditCardService::class)->getWithCategory(['name' => "Credit Card"]);
+    }
 }
