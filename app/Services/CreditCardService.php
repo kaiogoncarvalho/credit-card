@@ -43,12 +43,12 @@ class CreditCardService
             ->findOrFail($id);
     }
     
-    public function get(array $filters = [], $order = null)
+    public function getWithCategory(array $filters = [], $order = null)
     {
         return $this->order(
             $this->filter($this->creditCard, $filters),
             $order
-        );
+        )->with('category');
     }
     
     public function create(array $fields, UploadedFile $file): CreditCard

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SearchCreditCardRequest extends FormRequest
 {
@@ -13,9 +14,9 @@ class SearchCreditCardRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
-
+    
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,8 +24,30 @@ class SearchCreditCardRequest extends FormRequest
      */
     public function rules()
     {
+        $ruleIn = Rule::in(
+            [
+                'name',
+                'slug',
+                'image',
+                'brand',
+                'category_id',
+                'credit_limit',
+                'annual_fee'
+            ]
+        );
         return [
-            //
+            'name'     => 'string',
+            'per_page' => 'integer',
+            'page'     => 'integer',
+            'order'    => [
+                'string',
+                $ruleIn
+            ],
+            'orders'   => 'array',
+            'orders.*' => [
+                'string',
+                $ruleIn
+            ],
         ];
     }
 }

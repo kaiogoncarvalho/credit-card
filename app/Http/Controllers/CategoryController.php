@@ -37,11 +37,10 @@ class CategoryController extends Controller
                     [
                         'order',
                         'per_page',
-                        'page',
-                        'orders'
+                        'page'
                     ]
                 ),
-                $request->get('order') ?? $request->get('orders')
+                $request->get('order')
             )->paginate(
                 ...Paginate::get($request->get('per_page'), $request->get('page'))
             );
@@ -108,11 +107,10 @@ class CategoryController extends Controller
                 [
                     'order',
                     'per_page',
-                    'page',
-                    'orders'
+                    'page'
                 ]
             ),
-            $request->get('order') ?? $request->get('orders')
+            $request->get('order')
         )->paginate(
             ...Paginate::get($request->get('per_page'), $request->get('page'))
         );

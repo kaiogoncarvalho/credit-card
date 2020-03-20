@@ -249,4 +249,25 @@ class CreditCardServiceTest extends TestCase
         $this->app->instance(CreditCard::class, $creditCardMock);
         $this->app->make(CreditCardService::class)->getByIdWithCategory($id);
     }
+    
+    public function testDelete()
+    {
+        $id = 1;
+    
+        $creditCardMock = $this->mock(CreditCard::class);
+        $creditCardMock
+            ->shouldReceive('findOrFail')
+            ->once()
+            ->with(
+                $id
+            )->andReturnSelf();
+    
+        $creditCardMock
+            ->shouldReceive('delete')
+            ->once();
+        
+        
+        $this->app->instance(CreditCard::class, $creditCardMock);
+        $this->app->make(CreditCardService::class)->delete($id);
+    }
 }

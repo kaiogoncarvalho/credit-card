@@ -57,7 +57,13 @@ class CreditCardTest extends AcceptanceTestCase
         
         $this->assertDatabaseHas(
             'credit_cards',
-            $body + ['image' => $creditCard->getAttribute('image')]
+            [
+                'name'        => $creditCard->getAttribute('name'),
+                'slug'        => $creditCard->getAttribute('slug'),
+                'brand'       => $creditCard->getAttribute('brand'),
+                'category_id' => $creditCard->getAttribute('category_id'),
+                'image'       => $creditCard->getAttribute('image')
+            ]
         );
     }
     
@@ -142,7 +148,13 @@ class CreditCardTest extends AcceptanceTestCase
         
         $this->assertDatabaseHas(
             'credit_cards',
-            $body + ['image' => $creditCard->getAttribute('image')]
+            [
+                'name'        => $creditCard->getAttribute('name'),
+                'slug'        => $creditCard->getAttribute('slug'),
+                'brand'       => $creditCard->getAttribute('brand'),
+                'category_id' => $creditCard->getAttribute('category_id'),
+                'image'       => $creditCard->getAttribute('image')
+            ]
         );
     }
     
@@ -250,6 +262,71 @@ class CreditCardTest extends AcceptanceTestCase
         
         $response = $this->json(
             'GET',
+            '/v1/credit-card/' . $id,
+            []
+        
+        )->assertStatus(Response::HTTP_FORBIDDEN);
+        
+        $content = $response->getOriginalContent();
+        
+        $this->assertSame('Invalid scope(s) provided.', $content['message']);
+    }
+    
+    public function testDelete()
+    {
+        $creditCard = factory(CreditCard::class)->create();
+    
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::ADMIN]]),
+            [Scope::ADMIN]
+        );
+        
+        $this->json(
+            'DELETE',
+            '/v1/credit-card/' . $creditCard->id
+        )->assertStatus(Response::HTTP_NO_CONTENT);
+        
+        $this->assertDatabaseMissing(
+            'credit_cards',
+            $creditCard->toArray() + ['deleted_at' => null]
+        );
+    }
+    
+    public function testDeleteWhenUserDontHaveScope()
+    {
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::USER]]),
+            [Scope::ADMIN]
+        );
+        
+        $id = factory(CreditCard::class)->create()->id;
+        
+        $response = $this->json(
+            'DELETE',
+            '/v1/credit-card/' . $id,
+            []
+        
+        )->assertStatus(Response::HTTP_UNAUTHORIZED);
+        
+        $content = $response->getOriginalContent();
+        
+        $this->assertSame('For this resource one of scopes is necessary', $content['message']);
+        $this->assertSame([Scope::ADMIN], $content['required_scopes']);
+        $this->assertSame([Scope::USER], $content['user_scopes']);
+    }
+    
+    
+    public function testDeleteWhenTokenDontHaveScope()
+    {
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::ADMIN]]),
+            [Scope::USER]
+        );
+        
+        $id = factory(CreditCard::class)->create()->id;
+        
+        $response = $this->json(
+            'DELETE',
             '/v1/credit-card/' . $id,
             []
         

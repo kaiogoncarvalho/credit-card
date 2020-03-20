@@ -33,11 +33,6 @@ class SearchCategoryRequest extends FormRequest
                 'string',
                 $ruleIn
             ],
-            'orders'   => 'array',
-            'orders.*' => [
-                'string',
-                $ruleIn
-            ],
         ];
     }
     

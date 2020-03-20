@@ -19,7 +19,7 @@ class CreateCreditCardsTable extends Migration
             $table->string('name', 80)->unique();
             $table->string('slug', 255)->unique();
             $table->string('image', 255);
-            $table->enum('brand', Brand::getAll());
+            $table->enum('brand', [Brand::ELO, Brand::MASTERCARD, Brand::VISA]);
             $table->integer('category_id')->unsigned();
             $table->double('credit_limit', 15,2)->nullable();
             $table->double('annual_fee', 15, 2)->nullable();
