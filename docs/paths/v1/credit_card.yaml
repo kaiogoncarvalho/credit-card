@@ -1,19 +1,23 @@
 post:
   parameters:
     - $ref: '../../components/parameters/headers.yaml#/Authorization'
-    - $ref: '../../components/parameters/headers.yaml#/Content-Type-Json'
+    - $ref: '../../components/parameters/headers.yaml#/Content-Type-Form-Data'
   tags:
-    - Category
-  summary: Create a Category
+    - Credit Card
+  summary: Create a Credit Card
   requestBody:
     required: true
     content:
-      application/json:
+      multipart/form-data:
         schema:
           allOf:
-            - $ref: '../../components/request/category.yaml#/schema'
+            - $ref: '../../components/request/credit_card.yaml#/schema'
             - required:
                 - name
+                - slug
+                - image
+                - brand
+                - category_id
   description: <b>Scopes:</b> admin
   security:
     - oAuth2:
@@ -24,11 +28,9 @@ post:
   responses:
     '500':
       $ref: '../../components/responses/errors/InternalServerError.yaml#/InternalServerError'
-    '404':
-      $ref: '../../components/responses/errors/NotFound.yaml#/Resource'
     '200':
       description: Category Information
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/category.yaml#/schema'
+            $ref: '../../components/schemas/credit_card.yaml#/schema'

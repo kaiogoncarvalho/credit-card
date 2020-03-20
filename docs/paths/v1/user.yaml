@@ -1,7 +1,7 @@
 post:
   parameters:
     - $ref: '../../components/parameters/headers.yaml#/Authorization'
-    - $ref: '../../components/parameters/headers.yaml#/ContentType'
+    - $ref: '../../components/parameters/headers.yaml#/Content-Type-Json'
   tags:
     - User
   summary: Create User

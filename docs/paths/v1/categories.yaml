@@ -3,6 +3,8 @@ get:
     - $ref: '../../components/parameters/queries.yaml#/page'
     - $ref: '../../components/parameters/queries.yaml#/perPage'
     - $ref: '../../components/parameters/headers.yaml#/Authorization'
+    - $ref: '../../components/parameters/queries_user.yaml#/order'
+    - $ref: '../../components/parameters/queries_user.yaml#/filters/name'
   tags:
     - Category
   summary: Get all Categories

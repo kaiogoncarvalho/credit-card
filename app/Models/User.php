@@ -48,7 +48,7 @@ use App\Models\Interfaces\Filtered;
  * @property mixed $scopes
  * @method static Builder|User whereScopes($value)
  * @property string|null $email_verified_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
  */
 class User extends Authenticatable implements Filtered
 {
@@ -80,7 +80,7 @@ class User extends Authenticatable implements Filtered
         'updated_at' => 'Y-m-d H:i:s',
     ];
     
-    protected $filters = [
+    protected array $filters = [
         'name'  => 'like',
         'email' => 'like',
     ];

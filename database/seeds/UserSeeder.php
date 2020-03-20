@@ -5,7 +5,7 @@ use App\Models\User;
 use Laravel\Passport\Client;
 use App\Enums\Scope;
 
-class UsersTablesSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.

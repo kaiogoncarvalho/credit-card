@@ -17,7 +17,6 @@ Route::prefix('v1')->group(
     function () {
         Route::prefix('/oauth')->group(
             function () {
-                
                 Route::middleware('guest')->post(
                     'token',
                     '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken'
@@ -33,7 +32,7 @@ Route::prefix('v1')->group(
                             )->where(['user_id' => '[0-9]+']);
                         }
                     );
-    
+                
                 Route::middleware(['auth:api', 'scope:admin,user'])
                     ->get('/clients', 'UserController@getClients');
             }
@@ -41,7 +40,6 @@ Route::prefix('v1')->group(
         
         Route::prefix('/user')->group(
             function () {
-                
                 Route::middleware(['auth:api', 'scope:admin,user'])
                     ->get('', 'UserController@get');
                 
@@ -58,7 +56,6 @@ Route::prefix('v1')->group(
         
         Route::middleware(['auth:api', 'scope:admin'])->group(
             function () {
-                
                 Route::get('/users', 'UserController@getAll');
                 
                 Route::prefix('category')->group(
@@ -70,14 +67,14 @@ Route::prefix('v1')->group(
                             ->where(['category_id' => '[0-9]+']);
                         Route::delete('/{category_id}', 'CategoryController@delete')
                             ->where(['category_id' => '[0-9]+']);
-    
+                        
                         Route::get('deleted/{category_id}', 'CategoryController@getDeletedById')
                             ->where(['category_id' => '[0-9]+']);
                         Route::patch('recover/{category_id}', 'CategoryController@recoverById')
                             ->where(['category_id' => '[0-9]+']);
                     }
                 );
-    
+                
                 Route::prefix('categories')->group(
                     function () {
                         Route::get('', 'CategoryController@getAll');
@@ -85,6 +82,11 @@ Route::prefix('v1')->group(
                     }
                 );
                 
+                Route::prefix('credit-card')->group(
+                    function () {
+                        Route::post('', 'CreditCardController@create');
+                    }
+                );
             }
         );
     }

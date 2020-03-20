@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 use App\Models\Interfaces\Filtered;
 
-class Category extends Model implements Filtered
+class CreditCard extends Model implements Filtered
 {
     use SoftDeletes;
     
     protected $fillable = [
-        'name'
+        'name',
+        'slug',
+        'image',
+        'brand',
+        'category_id',
+        'credit_limit',
+        'annual_fee'
     ];
     
     protected $hidden = [
@@ -25,8 +30,13 @@ class Category extends Model implements Filtered
     ];
     
     protected array $filters = [
-        'name' => 'like',
+        'name' => 'like'
     ];
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
     
     public function getFilters(): array
     {

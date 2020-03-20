@@ -1,6 +1,6 @@
 post:
   parameters:
-    - $ref: '../../../components/parameters/headers.yaml#/ContentType'
+    - $ref: '../../../components/parameters/headers.yaml#/Content-Type-Json'
   requestBody:
     description: Body to authentication.
     required: true

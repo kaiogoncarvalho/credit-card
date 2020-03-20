@@ -1,0 +1,19 @@
+order:
+  in: query
+  name: order
+  description: Ordenate by value
+  schema:
+    type: enum
+    enum: [
+      'name'
+    ]
+    example: name
+
+filters:
+  name:
+    in: query
+    name: name
+    description: Filter by Name
+    schema:
+      type: string
+      example: "Name"

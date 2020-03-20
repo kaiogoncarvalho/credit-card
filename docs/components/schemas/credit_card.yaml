@@ -1,0 +1,45 @@
+schema:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: Credit Card ID
+    name:
+      type: string
+      example: Credit Card
+      description: The name of Credit Card
+    image:
+      type: string
+      example: image.jpg
+      description: The image name
+    brand:
+      type: enum
+      enum:
+        - Visa
+        - Elo
+        - Mastercard
+      example: Elo
+      description: The brand of Credit Card
+    category_id:
+      type: integer
+      example: 1
+      description: The Category ID
+    credit_limit:
+      type: number
+      format: double
+      example: "100.00"
+      description: The Credit Limit
+    annual_fee:
+      type: number
+      format: double
+      example: "1000.00"
+      description: The Annual Fee
+    created_at:
+      type: string
+      example: "2020-01-01 01:00:00"
+      description: The date when register was created
+    updated_at:
+      type: string
+      example: "2020-01-01 01:00:00"
+      description: The last date when register was updated

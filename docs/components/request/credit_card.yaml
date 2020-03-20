@@ -1,0 +1,33 @@
+schema:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Credit Card
+      description: The name of Credit Card
+    image:
+      type: string
+      format: binary
+      description: The image
+    brand:
+      type: enum
+      enum:
+        - Visa
+        - Elo
+        - Mastercard
+      example: Elo
+      description: The brand of Credit Card
+    category_id:
+      type: integer
+      example: 1
+      description: The Category ID
+    credit_limit:
+      type: number
+      format: double
+      example: "100.00"
+      description: The Credit Limit
+    annual_fee:
+      type: number
+      format: double
+      example: "1000.00"
+      description: The Annual Fee

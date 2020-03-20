@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use App\Models\Category;
-use App\Services\Traits\Filters;
-use App\Services\Traits\Order;
+use App\Services\Traits\{Filters, Order};
 
 /**
  * Class CategoryService
  * @package App\Services
  */
-class CategoryService implements CrudService
+class CategoryService
 {
     use Filters, Order;
     

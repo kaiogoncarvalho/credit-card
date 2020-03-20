@@ -4,13 +4,12 @@ namespace App\Services;
 
 use App\Models\User;
 use DB;
+use Auth;
 use Exception;
 use Illuminate\Support\Str;
 use App\Enums\Scope;
-use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
-use App\Services\Traits\Filters;
-use App\Services\Traits\Order;
+use App\Services\Traits\{Filters, Order};
 
 class UserService
 {
