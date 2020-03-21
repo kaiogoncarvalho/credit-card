@@ -2,25 +2,26 @@ FROM php:7.4-fpm
 
 WORKDIR /opt/creditcard
 
-# Install required packages
+# Install extensions
 RUN apt-get update && apt-get install -y \
-    git \
-    wget \
-    zip \
-    libcurl4-openssl-dev \
-    pkg-config \
-    libssl-dev
+        git \
+        wget \
+        zip \
+        libfreetype6-dev \
+        libwebp-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        libgmp-dev \
+        libldap2-dev \
+        build-essential
 
-# Install PHP extesions
-RUN docker-php-ext-install pdo_mysql
+# Install Docker PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
+RUN docker-php-ext-install -j$(nproc) gd pdo_mysql
 
 # Install Docker X-Debug tools
 RUN pecl install xdebug
-
-RUN pecl install mongodb \
-	&& 	touch /usr/local/etc/php/conf.d/mongodb.ini \
-	&&  echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini \
-	&&  rm -rf /tmp/pear
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"\
