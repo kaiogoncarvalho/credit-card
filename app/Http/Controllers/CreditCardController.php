@@ -126,4 +126,19 @@ class CreditCardController extends Controller
             );
     }
     
+    public function deleteImage(
+        int $credit_card_id,
+        CreditCardService $creditCardService
+    ): JsonResponse {
+        
+        $creditCardService->deleteImage(
+            $credit_card_id
+        );
+        
+        return new JsonResponse(
+            [],
+            Response::HTTP_NO_CONTENT
+        );
+    }
+    
 }

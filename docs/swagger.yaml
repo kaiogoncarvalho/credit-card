@@ -67,3 +67,6 @@ paths:
     /v1/credit-cards:
       $ref: './paths/v1/credit-cards.yaml'
 
+    /v1/credit-card/{credit_card_id}/image:
+      $ref: './paths/v1/credit-card/{credit_card_id}/image.yaml'
+

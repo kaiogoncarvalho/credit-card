@@ -30,7 +30,7 @@ class UpdateCreditCardRequest extends FormRequest
         
         return [
             'name'         => "string|min:1|max:80|unique:credit_cards,name,{$id},id",
-            'slug'         => "string|min:1|max:255|unique:credit_cards,slug,{$id},id",
+            'slug'         => "string|min:1|alpha_dash|unique:credit_cards,slug,{$id},id",
             'image'        => 'image',
             'brand'        => [
                 Rule::in(Brand::getAll())

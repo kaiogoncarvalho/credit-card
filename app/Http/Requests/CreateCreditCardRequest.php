@@ -28,7 +28,7 @@ class CreateCreditCardRequest extends FormRequest
     {
         return [
             'name'         => 'required|string|min:1|max:80|unique:credit_cards,name',
-            'slug'         => 'required|string|min:1|max:255|unique:credit_cards,slug',
+            'slug'         => 'required|string|min:1|alpha_dash|unique:credit_cards,slug',
             'image'        => 'required|image',
             'brand'        => [
                 'required',

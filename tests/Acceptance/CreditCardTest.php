@@ -10,6 +10,7 @@ use App\Enums\Scope;
 use function GuzzleHttp\json_decode;
 use App\Models\CreditCard;
 use Illuminate\Http\UploadedFile;
+use Storage;
 
 /**
  * Class CreditCardTest
@@ -41,7 +42,7 @@ class CreditCardTest extends AcceptanceTestCase
             $body,
             [],
             ['image' => UploadedFile::fake()->image($creditCard->getAttribute('image'))]
-        )->send();
+        );
         
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
@@ -373,5 +374,71 @@ class CreditCardTest extends AcceptanceTestCase
         $this->assertArrayHasKey('name', $content['data'][0]['category']);
         $this->assertArrayHasKey('created_at', $content['data'][0]['category']);
         $this->assertArrayHasKey('updated_at', $content['data'][0]['category']);
+    }
+    
+    public function testGetAllWhenUserDontHaveScope()
+    {
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::USER]]),
+            [Scope::ADMIN]
+        );
+        
+        $response = $this->json(
+            'GET',
+            '/v1/credit-cards',
+            []
+        
+        )->assertStatus(Response::HTTP_UNAUTHORIZED);
+        
+        $content = $response->getOriginalContent();
+        
+        $this->assertSame('For this resource one of scopes is necessary', $content['message']);
+        $this->assertSame([Scope::ADMIN], $content['required_scopes']);
+        $this->assertSame([Scope::USER], $content['user_scopes']);
+    }
+    
+    
+    public function testGetAllWhenTokenDontHaveScope()
+    {
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::ADMIN]]),
+            [Scope::USER]
+        );
+        
+        $response = $this->json(
+            'GET',
+            '/v1/credit-cards',
+            []
+        
+        )->assertStatus(Response::HTTP_FORBIDDEN);
+        
+        $content = $response->getOriginalContent();
+        
+        $this->assertSame('Invalid scope(s) provided.', $content['message']);
+    }
+    
+    public function testDeleteImage()
+    {
+        Passport::actingAs(
+            factory(User::class)->create(['scopes' => [Scope::ADMIN]]),
+            [Scope::ADMIN]
+        );
+    
+        $creditCard = factory(CreditCard::class)->create();
+    
+        $file = UploadedFile::fake()->image($creditCard->image);
+        Storage::putFileAs(env('STORAGE_CARDS_PATH')."/{$creditCard->id}", $file, $creditCard->image);
+    
+        $this->json(
+            'DELETE',
+            "/v1/credit-card/{$creditCard->id}/image",
+            []
+        )->assertStatus(Response::HTTP_NO_CONTENT);
+    
+        
+        
+        $this->assertFileNotExists(
+            storage_path("app/" . env('STORAGE_CARDS_PATH') . "/{$creditCard->id}/{$creditCard->image}")
+        );
     }
 }

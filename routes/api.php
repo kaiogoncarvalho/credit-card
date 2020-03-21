@@ -94,6 +94,8 @@ Route::prefix('v1')->group(
                             ->where(['credit_card_id' => '[0-9]+']);
                         Route::get('{credit_card_id}', 'CreditCardController@getById')
                             ->where(['credit_card_id' => '[0-9]+']);
+                        Route::delete('{credit_card_id}/image', 'CreditCardController@deleteImage')
+                            ->where(['credit_card_id' => '[0-9]+']);
                         Route::delete('{credit_card_id}', 'CreditCardController@delete')
                             ->where(['credit_card_id' => '[0-9]+']);
                     }

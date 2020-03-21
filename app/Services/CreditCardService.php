@@ -87,6 +87,19 @@ class CreditCardService
         $this->creditCard->findOrFail($id)->delete();
     }
     
+    public function deleteImage(int $id)
+    {
+        $creditCard = $this
+            ->creditCard
+            ->findOrFail($id);
+    
+        Storage::deleteDirectory(env('STORAGE_CARDS_PATH')."/{$creditCard->id}");
+    
+        $creditCard->image = null;
+        
+        $creditCard->save();
+    }
+    
     public function update(int $id, ?UploadedFile $file, array $fields = []): CreditCard
     {
         $creditCard = $this

@@ -296,4 +296,42 @@ class CreditCardServiceTest extends TestCase
         $this->app->instance(CreditCard::class, $creditCardMock);
         $this->app->make(CreditCardService::class)->getWithCategory(['name' => "Credit Card"]);
     }
+    
+    public function testDeleteImage()
+    {
+        $id = 1;
+        
+        Storage::shouldReceive('deleteDirectory')
+            ->once()
+            ->with(env('STORAGE_CARDS_PATH')."/{$id}");
+        
+        
+        $creditCardMock = $this->mock(CreditCard::class);
+        
+        $creditCardMock
+            ->shouldReceive('findOrFail')
+            ->once()
+            ->with(
+                $id
+            )->andReturnSelf();
+        
+        $creditCardMock
+            ->shouldReceive('getAttribute')
+            ->once()
+            ->with('id')
+            ->andReturn($id);
+        
+        $creditCardMock
+            ->shouldReceive('save')
+            ->once();
+        
+        $creditCardMock
+            ->shouldReceive('setAttribute')
+            ->once()
+            ->with('image', null);
+        
+        
+        $this->app->instance(CreditCard::class, $creditCardMock);
+        $this->app->make(CreditCardService::class)->deleteImage($id);
+    }
 }

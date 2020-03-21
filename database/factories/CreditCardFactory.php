@@ -10,7 +10,7 @@ $factory->define(CreditCard::class, function (Faker $faker) {
     $nameImage = $faker->word().".jpg";
     return [
         'name'  => $faker->unique->name,
-        'slug'  => $faker->unique->name,
+        'slug'  => $faker->unique->slug,
         'image' => $nameImage,
         'brand' => $faker->randomElement(Brand::getAll()),
         'category_id' => function() {
