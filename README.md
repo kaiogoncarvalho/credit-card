@@ -21,7 +21,10 @@ For install is necessary follow this steps:
 * run this command to generate .env
     * `cp .env.example .env `   
 * run this command to install libraries
-    * `docker-compose exec php composer install`
+    * docker run --rm --interactive --tty \     
+         --volume $PWD:/app \         
+         --user $(id -u):$(id -g) \         
+         composer install
 * run this command to generate key:
     * `docker-compose exec php php artisan key:generate`
 * run this command for create tables
